@@ -3,11 +3,12 @@ import { View, Text, StyleSheet } from "react-native";
 import HomeHeader from "../components/HomeHeader";
 import MessagesList from "../components/MessagesList";
 
-const Home: React.FC = () =>{
+const Home: React.FC<any> = ({ navigation }) =>{
+    const goToConversation = () =>navigation.navigate("Conversation")
     return(
         <View style={styles.container}>
             <HomeHeader />
-            <MessagesList />
+            <MessagesList goToConversation={goToConversation} />
         </View>
     )
 }

@@ -2,10 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
 import { Text as Title, Avatar } from "react-native-elements";
 import { freinds } from "../global/freindsList";
+import Touchable from "react-native-platform-touchable";
 
 const { height: HEIGHT, width: WIDTH } = Dimensions.get("window");
 
-const MessagesHeader: React.FC = () => {
+const MessagesHeader: React.FC<any> = ({ goToCoversation, goToSearch }) => {
   return (
     <View style={styles.container}>
       <Title h4 style={{ marginLeft: 20, marginBottom: 10 }}>
@@ -17,21 +18,24 @@ const MessagesHeader: React.FC = () => {
         showsHorizontalScrollIndicator={false}
       >
         <View style={{ flexDirection: "row", marginRight: 20 }}>
-          <Avatar
-            rounded
-            overlayContainerStyle={{ backgroundColor: "#dfe8ff" }}
-            size={65}
-            icon={{ name: "add", color: "#2663FF" }}
-            containerStyle={{ marginRight: 10 }}
-          />
-          {freinds.map((f) => (
+          <Touchable onPress={() =>goToSearch()}>
             <Avatar
-              key={f.name}
               rounded
-              source={f.avatar}
+              overlayContainerStyle={{ backgroundColor: "#dfe8ff" }}
               size={65}
+              icon={{ name: "add", color: "#2663FF" }}
               containerStyle={{ marginRight: 10 }}
             />
+          </Touchable>
+          {freinds.map((f) => (
+            <Touchable onPress={() =>goToCoversation()} key={f.name}>
+              <Avatar
+                rounded
+                source={f.avatar}
+                size={65}
+                containerStyle={{ marginRight: 10 }}
+              />
+            </Touchable>
           ))}
         </View>
       </ScrollView>
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
   container: {
     width: WIDTH,
     justifyContent: "center",
-    paddingTop: 50,
+    paddingTop: 30,
   },
 });
 

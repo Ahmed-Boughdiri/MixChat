@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const Settings: React.FC = () =>{
+const Conversation: React.FC = () =>{
     return(
         <View style={styles.container}>
-            <Text>This is The Settings Screen</Text>
+            <Text>This is The Conversation Screen</Text>
         </View>
     )
 }
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Settings
+export default Conversation

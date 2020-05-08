@@ -1,14 +1,18 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView } from "react-native";
 import MessagesHeader from "../components/MessagesHeader";
 import LastMessages from "../components/LastMessages";
 
-const Messages: React.FC = () =>{
+const Messages: React.FC<any> = ({ navigation }) =>{
+    const goToCoversation = () =>navigation.navigate("Conversation")
+    const goToSearch = () =>navigation.navigate("Search")
     return(
-        <View style={styles.container}>
-            <MessagesHeader />
-            <LastMessages />
-        </View>
+        <KeyboardAvoidingView style={styles.container}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{marginTop: 20}}>
+                <MessagesHeader goToCoversation={goToCoversation} goToSearch={goToSearch} />
+                <LastMessages />
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 

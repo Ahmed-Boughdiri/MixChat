@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
-import { Text as Title } from "react-native-elements";
+import { Text as Title, Tooltip } from "react-native-elements";
 import { loadAsync } from "expo-font";
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons'; 
+import Settings from "../components/Settings";
 
 const { height: HEIGHT, width: WIDTH } = Dimensions.get("window");
 
@@ -20,7 +21,9 @@ const HomeHeader: React.FC = () =>{
     return(
         <View style={styles.container}>
             <Title h2>MixChat</Title>
-            <MaterialCommunityIcons name="account-search-outline" size={30} style={{marginTop: 10}} color="black" />
+            <Tooltip backgroundColor="#fff" popover={<Settings />} overlayColor="rgba(0,0,0,0.5)" width={200} height={180}>
+                <AntDesign name="setting" size={30} color="black" style={{marginTop: 10}} />
+            </Tooltip>
         </View>
     )
 }
