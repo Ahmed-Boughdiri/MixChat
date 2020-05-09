@@ -9,7 +9,7 @@ const WIDTH = Dimensions.get("window").width
 const MessagesList: React.FC<any> = ({ goToConversation }) =>{
     return(
         <View style={styles.container}>
-            <ScrollView style={{width: "100%"}} showsVerticalScrollIndicator={false}>
+            <View style={{width: "100%"}}>
                 <Caption style={{fontSize: 15,marginBottom: 10,paddingHorizontal: 20}}>Recent Activities</Caption>
                 <View style={{marginBottom: 20}}>
                     {
@@ -17,12 +17,12 @@ const MessagesList: React.FC<any> = ({ goToConversation }) =>{
                     }
                 </View>
                 <Caption style={{fontSize: 15,paddingHorizontal: 20}}>Recent Activities</Caption>
-                <View style={{marginBottom: 90}}>
+                <View>
                     {
                         nonNotifFreind.map(f =><Freind avatar={f.avatar} name={f.name} lastAct={f.lastAct} notif={f.notif} key={f.name} goToConversation={goToConversation} />)
                     }
                 </View>
-            </ScrollView>
+            </View>
         </View>
     )
 }

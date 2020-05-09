@@ -30,7 +30,7 @@ const HomeHeader: React.FC = () =>{
 
 const styles = StyleSheet.create({
     container: {
-        height: HEIGHT * 0.15,
+        height: HEIGHT * 0.11,
         width: WIDTH,
         paddingHorizontal: 20,
         flexDirection: "row",

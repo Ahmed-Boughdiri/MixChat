@@ -1,19 +1,24 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
+import ConvMsg from "../components/ConvMsg";
+import Conv from "../components/Conv";
+import ConvHeader from "../components/ConvHeader";
 
-const Conversation: React.FC = () =>{
+const Conversation: React.FC<any> = ({ navigation }) =>{
+    const goBack = () => navigation.goBack()
     return(
-        <View style={styles.container}>
-            <Text>This is The Conversation Screen</Text>
-        </View>
+        <KeyboardAvoidingView style={styles.container}>
+            <ConvHeader goBack={goBack} />
+            <Conv />
+            <ConvMsg />
+        </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
+        backgroundColor: "#fff"
     }
 })
 

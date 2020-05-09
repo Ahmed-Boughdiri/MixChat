@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import HomeHeader from "../components/HomeHeader";
 import MessagesList from "../components/MessagesList";
 
@@ -7,8 +7,10 @@ const Home: React.FC<any> = ({ navigation }) =>{
     const goToConversation = () =>navigation.navigate("Conversation")
     return(
         <View style={styles.container}>
-            <HomeHeader />
-            <MessagesList goToConversation={goToConversation} />
+            <ScrollView style={{flex: 1,marginTop: 20}} showsVerticalScrollIndicator={false}>
+                <HomeHeader />
+                <MessagesList goToConversation={goToConversation} />
+            </ScrollView>
         </View>
     )
 }
@@ -16,7 +18,7 @@ const Home: React.FC<any> = ({ navigation }) =>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
     }
 })
 
