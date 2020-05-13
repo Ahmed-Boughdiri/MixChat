@@ -7,3 +7,4 @@ export const trait = (word: string): string =>{
         return word
     }
 }
+
