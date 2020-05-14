@@ -3,14 +3,22 @@ import { View, Text, StyleSheet } from "react-native";
 import { Entypo } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
+import { signOut } from "../global/Sign";
+import Touchable from "react-native-platform-touchable";
 
-const Settings: React.FC = () =>{
+const Settings: React.FC<any> = ({ goToWelcome }) =>{
+    const goSignOut = async() =>{
+        await signOut();
+        goToWelcome()
+    }
     return(
         <View style={styles.container}>
-            <View style={styles.setting}>
-                <Entypo name="log-out" size={24} color="#444" />
-                <Text style={styles.settingName}>Log Out</Text>
-            </View>
+            <Touchable style={styles.setting} onPress={goSignOut}>
+                <View style={{flexDirection: "row"}}>
+                    <Entypo name="log-out" size={24} color="#444" />
+                    <Text style={styles.settingName}>Log Out</Text>
+                </View>
+            </Touchable>
             <View style={styles.setting}>
                 <AntDesign name="edit" size={24} color="#444" />
                 <Text style={styles.settingName}>Edit Info</Text>

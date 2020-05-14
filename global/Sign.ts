@@ -1,6 +1,6 @@
 import * as firebase from "firebase";
 import axios from "axios";
-import { AsyncStorage, Alert } from "react-native";
+import { AsyncStorage } from "react-native";
 
 try {
     firebase.initializeApp({
@@ -59,10 +59,32 @@ export const signIn = async(email: string,password: string) =>{
     })
     return result
 }
+console
 
-const getData = async() =>{
-    const data = await AsyncStorage.getItem("uid");
-    console.log("uid: ",data)
+export interface DataProps {
+    findUID: boolean;
+    uid: string
 }
 
-//getData();
+export const getData = async() =>{
+    const result: DataProps = {
+        findUID: false,
+        uid: ""
+    }
+    const data = await AsyncStorage.getItem("uid");
+    if(data === null) {
+        result.findUID = false;
+        result.uid = ""
+    }else{
+        result.findUID = true;
+        result.uid = data
+    }
+    return result
+}
+
+export const signOut = async() =>{
+    await firebase.auth().signOut();
+    await AsyncStorage.removeItem("uid");
+}
+
+

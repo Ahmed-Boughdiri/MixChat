@@ -14,75 +14,104 @@ import Input from "../components/Input";
 import { signIn, ResultProps } from "../global/Sign";
 import { Formik } from "formik";
 import * as yup from "yup";
+import Loading from "../components/Loading";
 
 const schema = yup.object({
-    email: yup.string().required().email(),
-    password: yup.string().required().min(8)
-})
+  email: yup.string().required().email(),
+  password: yup.string().required().min(8),
+});
 
 const SignIn: React.FC<any> = ({ navigation }) => {
   const signUp = () => navigation.navigate("SignUp");
+  const [loading, setLoading] = React.useState(false);
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../assets/signup.png")}
-        style={{ height: 250, width: 300 }}
-      />
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        onSubmit={async(val) => {
-            const result: ResultProps = await signIn(val.email, val.password);
-            if (result.success) {
+      {loading ? (
+        <Loading />
+      ) : (
+        <View>
+          <Image
+            source={require("../assets/signup.png")}
+            style={{ height: 250, width: 300 }}
+          />
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            onSubmit={async (val) => {
+              setLoading(true);
+              const result: ResultProps = await signIn(val.email, val.password);
+              if (result.success) {
                 navigation.navigate("Application");
-            } else {
+              } else {
+                setLoading(false);
                 Alert.alert("Error", result.error);
-            }
-        }}
-        validationSchema={schema}
-      >
-        {(formikProps) => (
-          <View>
-            <Input
-              label="Email"
-              placeholder="Enter Your Email"
-              icon={<MaterialIcons name="email" size={24} color="#9a9a9a" />}
-              changeValue={formikProps.handleChange("email")}
-              secure={false}
-              value={formikProps.values.email}
-            />
-            <Input
-              label="Password"
-              placeholder="Enter Your Password"
-              icon={<FontAwesome5 name="lock" size={20} color="#9a9a9a" />}
-              changeValue={formikProps.handleChange("password")}
-              secure={true}
-              value={formikProps.values.password}
-            />
-            <Touchable style={styles.btn} onPress={() =>formikProps.handleSubmit()}>
-              <Text style={{ color: "#fff", fontSize: 16 }}>Sign Up</Text>
-            </Touchable>
-            <Text style={{color: "red",textAlign: "center"}}>
-                {
-                    (formikProps.errors.email && formikProps.touched) ? formikProps.errors.email : ""
-                }
+              }
+            }}
+            validationSchema={schema}
+          >
+            {(formikProps) => (
+              <View>
+                <Input
+                  label="Email"
+                  placeholder="Enter Your Email"
+                  icon={
+                    <MaterialIcons name="email" size={24} color="#9a9a9a" />
+                  }
+                  changeValue={formikProps.handleChange("email")}
+                  secure={false}
+                  value={formikProps.values.email}
+                />
+                <Input
+                  label="Password"
+                  placeholder="Enter Your Password"
+                  icon={<FontAwesome5 name="lock" size={20} color="#9a9a9a" />}
+                  changeValue={formikProps.handleChange("password")}
+                  secure={true}
+                  value={formikProps.values.password}
+                />
+                <Touchable
+                  style={styles.btn}
+                  onPress={formikProps.handleSubmit as any}
+                >
+                  <Text style={{ color: "#fff", fontSize: 16 }}>Sign Up</Text>
+                </Touchable>
+                <Text
+                  style={{
+                    color: "red",
+                    textAlign: "center",
+                    height: formikProps.errors.email ? 15 : 0,
+                  }}
+                >
+                  {formikProps.errors.email && formikProps.touched
+                    ? formikProps.errors.email
+                    : ""}
+                </Text>
+                <Text
+                  style={{
+                    color: "red",
+                    textAlign: "center",
+                    height: formikProps.errors.password ? 20 : 0,
+                  }}
+                >
+                  {formikProps.errors.password && formikProps.touched
+                    ? formikProps.errors.password
+                    : ""}
+                </Text>
+              </View>
+            )}
+          </Formik>
+          <TouchableOpacity
+            style={{ marginTop: 10, marginBottom: 10 }}
+            onPress={signUp}
+          >
+            <Text style={{ color: "#444", textAlign: "center" }}>
+              I don't have an Account
             </Text>
-            <Text style={{color: "red",textAlign: "center"}}>
-                {
-                    (formikProps.errors.password && formikProps.touched) ? formikProps.errors.password : ""
-                }
-            </Text>
-          </View>
-        )}
-      </Formik>
-      <TouchableOpacity
-        style={{ marginTop: 10, marginBottom: 10 }}
-        onPress={signUp}
-      >
-        <Text style={{ color: "#444" }}>I don't have an Account</Text>
-      </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };

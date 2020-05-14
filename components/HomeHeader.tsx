@@ -7,7 +7,7 @@ import Settings from "../components/Settings";
 
 const { height: HEIGHT, width: WIDTH } = Dimensions.get("window");
 
-const HomeHeader: React.FC = () =>{
+const HomeHeader: React.FC<any> = ({ goToWelcome }) =>{
     const [font,setFont] = React.useState("");
     const loadFont = async() =>{
         await loadAsync({
@@ -21,7 +21,7 @@ const HomeHeader: React.FC = () =>{
     return(
         <View style={styles.container}>
             <Title h2>MixChat</Title>
-            <Tooltip backgroundColor="#fff" popover={<Settings />} overlayColor="rgba(0,0,0,0.5)" width={200} height={180}>
+            <Tooltip backgroundColor="#fff" popover={<Settings goToWelcome={goToWelcome} />} overlayColor="rgba(0,0,0,0.5)" width={200} height={180}>
                 <AntDesign name="setting" size={30} color="black" style={{marginTop: 10}} />
             </Tooltip>
         </View>
