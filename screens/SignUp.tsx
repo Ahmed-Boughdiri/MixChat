@@ -25,6 +25,21 @@ const schema = yup.object({
 
 const SignUp: React.FC<any> = ({ navigation }) => {
   const [loading, setLoading] = React.useState(false);
+  const goSubmit = async(userName: string,email: string, password: string) =>{
+    setLoading(true);
+    const result: ResultProps = await signUp(
+      userName,
+      email,
+      password
+    );
+    if (result.success) {
+      navigation.navigate("Application");
+      setLoading(false)
+    } else {
+      setLoading(false);
+      Alert.alert("Error", result.error);
+    }
+  }
   return (
     <View style={styles.container}>
       {loading ? (
@@ -44,18 +59,7 @@ const SignUp: React.FC<any> = ({ navigation }) => {
             validationSchema={schema}
             onSubmit={async (val, action) => {
               console.log("Clicked");
-              setLoading(true);
-              const result: ResultProps = await signUp(
-                val.userName,
-                val.email,
-                val.password
-              );
-              if (result.success) {
-                navigation.navigate("Application");
-              } else {
-                setLoading(false);
-                Alert.alert("Error", result.error);
-              }
+              await goSubmit(val.userName,val.email,val.password)
               action.resetForm();
             }}
           >

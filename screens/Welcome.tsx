@@ -13,8 +13,8 @@ const Welcome: React.FC<any> = ({ navigation }) => {
   const redirect = async () => {
     const result: DataProps = await getData();
     if (result.findUID) {
-      setLoading(true);
       navigation.navigate("Application");
+      setLoading(false);
     } else {
       setLoading(false);
     }

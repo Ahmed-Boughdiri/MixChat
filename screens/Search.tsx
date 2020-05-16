@@ -2,7 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { Text as Title, Avatar } from "react-native-elements";
 import PotentialFreind from "../components/PotentialFreind";
-import { potential, getSuggestions, Potential } from "../global/freindsList";
+import { getSuggestions, Potential } from "../global/freindsList";
+import { getFreinds, Freind } from "../global/freindsList";
 
 const WIDTH = Dimensions.get("window").width;
 
@@ -10,8 +11,8 @@ type Poten = (Potential | never)
 
 const Search: React.FC = () => {
   const [potentialFreinds, setPotentialFreind] = React.useState<Poten[]>([])
-  const loadPotentialFreinds = async () => {
-    await getSuggestions();
+  const loadPotentialFreinds = async() => {
+    const potential = await getSuggestions();
     setPotentialFreind(potential);
   };
   React.useEffect(() => {
@@ -22,7 +23,7 @@ const Search: React.FC = () => {
       <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         <Title h3>Find New Freinds</Title>
         <View style={{ marginTop: 20, marginBottom: 30 }}>
-          {potentialFreinds.map(p => (
+          {(potentialFreinds) && potentialFreinds.map(p => (
             <PotentialFreind
               userName={p.userName}
               key={p.userName}

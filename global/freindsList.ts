@@ -14,9 +14,9 @@ export interface Potential {
     email: string
 }
 
-export let freinds: Freind[] = []
+//export let freinds: Freind[] = []
 
-export const notifFreind : Freind[] = [
+export const notifFreind: Freind[] = [
     {
         avatar: require("../assets/avatar6.jpg"),
         name: "Karim",
@@ -64,46 +64,62 @@ export const nonNotifFreind: Freind[] = [
     },
 ]
 
-export let potential: Potential[] = []
+//export let potential: Potential[] = []
 
 // get Freinds
 
-const getFreinds = async() =>{
+export const getFreinds = async () => {
+    let freinds: Freind[] = []
     const uid = await AsyncStorage.getItem("uid");
     const id = (uid === null) ? "" : uid
-    if(id !== ""){
-        const data = await axios.post("https://us-central1-mixchat-402d6.cloudfunctions.net/getFreinds",{ uid: id });
+    if (id !== "") {
+        const data = await axios.post("https://us-central1-mixchat-402d6.cloudfunctions.net/getFreinds", { uid: id });
         const result = data.data
         freinds = result
     }
+    return freinds
 }
 
 // get Suggestions
 
-export const getSuggestions = async() =>{
+export const getSuggestions = async () => {
+    let potential: Potential[] = []
+    const freinds = await getFreinds()
     const uid = await AsyncStorage.getItem("uid");
     const id = (uid === null) ? "" : uid
-    if(id !== ""){
-        const data = await axios.post("https://us-central1-mixchat-402d6.cloudfunctions.net/getSuggestions",{ freinds: freinds, uid: id });
+    if (id !== "") {
+        const data = await axios.post("https://us-central1-mixchat-402d6.cloudfunctions.net/getSuggestions", { freinds: freinds, uid: id });
         const result = data.data;
         potential = result
     }
+    console.log(potential)
+    return potential
 }
+
+console.log("*********************************************")
+console.log("*********************************************")
+console.log("*********************************************")
+console.log("*********************************************")
+console.log("*********************************************")
+
+//getSuggestions()
 
 // add Freind
 
-export const addFreind = async(freind: any) =>{
+export const addFreind = async (freind: any) => {
+    const freinds = await getFreinds()
     const uid = await AsyncStorage.getItem("uid");
     const id = (uid === null) ? "" : uid
     let result
-    if(id !== ""){
-        const data = await axios.post("https://us-central1-mixchat-402d6.cloudfunctions.net/addFreind",{ uid: id, freind: freind })
+    if (id !== "") {
+        const data = await axios.post("https://us-central1-mixchat-402d6.cloudfunctions.net/addFreind", { uid: id, freind: freind })
         result = data.data
         console.log(result)
     }
-    if(result.success) {
+    if (result.success) {
         freinds.push(result.freind)
     }
+    return freinds
 }
 
 // getFreinds();

@@ -1,12 +1,20 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
 import { Text as Title, Avatar } from "react-native-elements";
-import { freinds } from "../global/freindsList";
+import { getFreinds, Freind } from "../global/freindsList";
 import Touchable from "react-native-platform-touchable";
 
 const { height: HEIGHT, width: WIDTH } = Dimensions.get("window");
 
 const MessagesHeader: React.FC<any> = ({ goToCoversation, goToSearch }) => {
+  const [freindsList,setFreindsList] = React.useState<Freind[]>([])
+  const loadFreinds = async() =>{
+    const freinds = await getFreinds()
+    setFreindsList(freinds)
+  }
+  React.useEffect(() =>{
+    loadFreinds()
+  },[])
   return (
     <View style={styles.container}>
       <Title h4 style={{ marginLeft: 20, marginBottom: 10 }}>
@@ -27,11 +35,11 @@ const MessagesHeader: React.FC<any> = ({ goToCoversation, goToSearch }) => {
               containerStyle={{ marginRight: 10 }}
             />
           </Touchable>
-          {freinds.map((f) => (
+          {freindsList.map((f) => (
             <Touchable onPress={() =>goToCoversation()} key={f.name}>
               <Avatar
                 rounded
-                source={f.avatar}
+                source={require("../assets/user.png")}
                 size={65}
                 containerStyle={{ marginRight: 10 }}
               />

@@ -33,10 +33,11 @@ export const signUp = async (userName: string, email: string, password: string) 
             email: user.user?.email,
             uid: user.user?.uid,
         }
-        await axios.post("https://us-central1-mixchat-402d6.cloudfunctions.net/createUserRecord", { data: record })
-        await AsyncStorage.setItem("uid", user.user?.uid!);
-        result.success = true;
-        result.error = ""
+        await axios.post("https://us-central1-mixchat-402d6.cloudfunctions.net/createUserRecord", { data: record }).then(async() =>{
+            await AsyncStorage.setItem("uid", user.user?.uid!);
+            result.success = true;
+            result.error = ""
+        })
     }).catch(e =>{
         result.success = false;
         result.error = e + ""
