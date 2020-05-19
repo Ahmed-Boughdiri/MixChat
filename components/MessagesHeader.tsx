@@ -1,16 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ScrollView, AsyncStorage } from "react-native";
 import { Text as Title, Avatar } from "react-native-elements";
-import { getFreinds, Freind } from "../global/freindsList";
+import { getFreinds, Freind, freinds, updateFreindsList } from "../global/freindsList";
 import Touchable from "react-native-platform-touchable";
 
 const { height: HEIGHT, width: WIDTH } = Dimensions.get("window");
 
 const MessagesHeader: React.FC<any> = ({ goToCoversation, goToSearch }) => {
-  const [freindsList,setFreindsList] = React.useState<Freind[]>([])
+  const [freindsList,setFreindsList] = React.useState<(Freind[])>([]);
   const loadFreinds = async() =>{
-    const freinds = await getFreinds()
-    setFreindsList(freinds)
+    const data = await getFreinds()
+    setFreindsList(data)
   }
   React.useEffect(() =>{
     loadFreinds()

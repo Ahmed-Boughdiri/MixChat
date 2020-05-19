@@ -31,6 +31,7 @@
     "react-native-screens": "^2.2.0",
     "react-native-swiper": "^1.6.0-rc.3",
     "react-native-web": "~0.11.7",
+    "uuid": "^8.0.0",
     "yup": "^0.28.5"
   },
   "devDependencies": {

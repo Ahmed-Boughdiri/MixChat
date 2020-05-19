@@ -4,7 +4,7 @@ import { Caption } from "react-native-paper";
 import { Avatar } from "react-native-elements";
 import { Potential, addFreind } from "../global/freindsList";
 
-const PotentialFreind: React.FC<Potential> = ({ userName, avatar, email }) => {
+const PotentialFreind: React.FC<any> = ({ userName, avatar, email, updateSug }) => {
   return (
     <View style={styles.potentialFreind}>
       <View style={styles.freindInfo}>
@@ -16,7 +16,7 @@ const PotentialFreind: React.FC<Potential> = ({ userName, avatar, email }) => {
       </View>
       <View style={styles.actions}>
         <Avatar
-          onPress={() => addFreind({ name: userName, email: email })}
+          onPress={() => addFreind({name: userName, email: email},updateSug)}
           rounded
           icon={{ name: "add", color: "#fff" }}
           overlayContainerStyle={{ backgroundColor: "#2663FF" }}

@@ -2,33 +2,34 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
 import { Text as Title, Avatar } from "react-native-elements";
 import PotentialFreind from "../components/PotentialFreind";
-import { getSuggestions, Potential } from "../global/freindsList";
-import { getFreinds, Freind } from "../global/freindsList";
+import { getSuggestions, Potential, sug } from "../global/freindsList";
 
 const WIDTH = Dimensions.get("window").width;
 
-type Poten = (Potential | never)
-
 const Search: React.FC = () => {
-  const [potentialFreinds, setPotentialFreind] = React.useState<Poten[]>([])
-  const loadPotentialFreinds = async() => {
-    const potential = await getSuggestions();
-    setPotentialFreind(potential);
-  };
-  React.useEffect(() => {
-    loadPotentialFreinds();
-  });
+  const [sugList,setSugList] = React.useState<Potential[]>([])
+  const loadSug = async() =>{
+    const data = await getSuggestions()
+    setSugList(data)
+  }
+  React.useEffect(() =>{
+    loadSug()
+  },[])
+  const updateSug = () =>{
+    setSugList([...sug])
+  }
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         <Title h3>Find New Freinds</Title>
         <View style={{ marginTop: 20, marginBottom: 30 }}>
-          {(potentialFreinds) && potentialFreinds.map(p => (
+          {(sugList) && sugList.map(p => (
             <PotentialFreind
               userName={p.userName}
-              key={p.userName}
+              key={p.email}
               email={p.email}
               avatar={p.avatar}
+              updateSug={updateSug}
             />
           ))}
         </View>
