@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions, ScrollView, AsyncStorage } from "react-native";
 import { Text as Title, Avatar } from "react-native-elements";
-import { getFreinds, Freind, freinds, updateFreindsList } from "../global/freindsList";
+import { getFreinds, Freind, freinds } from "../global/freindsList";
 import Touchable from "react-native-platform-touchable";
 
 const { height: HEIGHT, width: WIDTH } = Dimensions.get("window");
@@ -39,7 +39,7 @@ const MessagesHeader: React.FC<any> = ({ goToCoversation, goToSearch }) => {
             <Touchable onPress={() =>goToCoversation()} key={f.name}>
               <Avatar
                 rounded
-                source={require("../assets/user.png")}
+                source={require("../assets/male.png")}
                 size={65}
                 containerStyle={{ marginRight: 10 }}
               />

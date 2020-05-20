@@ -5,12 +5,21 @@ import { Caption } from "react-native-paper";
 import { Freind as FreindProps } from "../global/freindsList";
 import { trait } from "../global/trait";
 import Touchable from "react-native-platform-touchable";
+import { passData } from "../global/Msg";
 
-const Freind: React.FC<FreindProps | any> = ({ avatar, name, lastAct, notif, goToConversation }) => {
+const Freind: React.FC<FreindProps | any> = ({ name, lastAct, notif, goToConversation }) => {
+  const navigate = () =>{
+    passData({
+      name: name,
+      lastAct: lastAct,
+      notif: notif,
+    })
+    goToConversation()
+  }
   return (
-    <Touchable onPress={() =>goToConversation()} style={styles.messageContainer}>
+    <Touchable onPress={navigate} style={styles.messageContainer}>
       <View style={{flexDirection: "row",paddingHorizontal: 20}}>
-        <Avatar rounded source={avatar} size={60} />
+        <Avatar rounded source={require("../assets/male.png")} size={60} />
         <View style={{...styles.ownerInfo,width: (notif > 0) ? 210 : 240}}>
           <Text style={styles.name}>{name}</Text>
           <Caption>{lastAct === "" ? "Nothing New" : trait(lastAct)}</Caption>

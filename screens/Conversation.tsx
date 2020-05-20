@@ -3,9 +3,13 @@ import { View, Text, StyleSheet, KeyboardAvoidingView } from "react-native";
 import ConvMsg from "../components/ConvMsg";
 import Conv from "../components/Conv";
 import ConvHeader from "../components/ConvHeader";
+import { conversation } from "../global/Msg";
 
-const Conversation: React.FC<any> = ({ navigation }) =>{
+const Conversation: React.FC<any> = ({ route,navigation }) =>{
     const goBack = () => navigation.goBack()
+    React.useEffect(() =>{
+        console.log(conversation)
+    },[])
     return(
         <KeyboardAvoidingView style={styles.container}>
             <ConvHeader goBack={goBack} />

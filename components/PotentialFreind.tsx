@@ -8,7 +8,7 @@ const PotentialFreind: React.FC<any> = ({ userName, avatar, email, updateSug }) 
   return (
     <View style={styles.potentialFreind}>
       <View style={styles.freindInfo}>
-        <Avatar rounded source={require("../assets/user.png")} size={60} />
+        <Avatar rounded source={require("../assets/male.png")} size={60} />
         <View style={{ marginLeft: 15, justifyContent: "center" }}>
           <Text style={styles.name}>{userName}</Text>
           <Caption>{email}</Caption>

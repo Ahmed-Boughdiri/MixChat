@@ -28,7 +28,7 @@ const Search: React.FC = () => {
               userName={p.userName}
               key={p.email}
               email={p.email}
-              avatar={p.avatar}
+              avatar={require("../assets/male.png")}
               updateSug={updateSug}
             />
           ))}
